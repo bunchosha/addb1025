@@ -3,7 +3,7 @@ working_directory @app_path + "/current"
 
 worker_processes 2
 preload_app true
-timeout 30
+timeout 10
 
 
 app_path = "/var/www/addb1025"
