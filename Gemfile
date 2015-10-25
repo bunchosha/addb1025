@@ -59,3 +59,6 @@ end
 group :production, :staging do
   gem 'unicorn'
 end
+
+gem 'execjs'
+gem 'therubyracer', :platforms => :ruby
