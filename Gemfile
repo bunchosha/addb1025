@@ -63,3 +63,4 @@ end
 
 gem 'execjs'
 gem 'therubyracer', :platforms => :ruby
+gem 'rb-readline'
