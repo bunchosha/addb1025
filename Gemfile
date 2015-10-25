@@ -46,16 +46,16 @@ group :development do
 end
 
 
+gem 'dotenv-rails' #環境変数を簡単に扱うのに使用
 
-# Gemfile
-group :production, :staging do
-  gem 'unicorn'
-end
- 
-group :development do
-  gem 'capistrano'
+group :development, :test do
+  gem 'capistrano', '~> 3.2.1'
   gem 'capistrano-rails'
   gem 'capistrano-rbenv'
   gem 'capistrano-bundler'
-  gem 'capistrano3-unicorn'
+  gem 'capistrano3-unicorn' #Unicornの起動を簡単に行える
+end
+
+group :production, :staging do
+  gem 'unicorn'
 end

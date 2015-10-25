@@ -1,40 +1,34 @@
-# staging.rb
-root = "/var/www/addb1025/current"
-working_directory root
-pid "#{root}/tmp/pids/unicorn.pid"
-stderr_path "#{root}/log/unicorn.log"
-stdout_path "#{root}/log/unicorn.log"
- 
-listen "/tmp/unicorn.sock"
-worker_processes 3
-timeout 30
+@app_path = '/var/www/addb1025'
+working_directory @app_path + "/current"
+
+worker_processes 2
 preload_app true
- 
-before_exec do |server|
-  ENV['BUNDLE_GEMFILE'] = "#{root}/Gemfile"
-end
- 
+timeout 30
+listen "/tmp/unicorn.sock", :backlog => 64
+pid "/var/www/addb1025/shared/tmp/pids/unicorn.pid"
+
+stderr_path "#{@app_path}/log/unicorn.stderr.log"
+stdout_path "#{@app_path}/log/unicorn.stdout.log"
+
 before_fork do |server, worker|
-  # the following is highly recomended for Rails + "preload_app true"
-  # as there's no need for the master process to hold a connection
+  ENV['BUNDLE_GEMFILE'] = File.expand_path('Gemfile', ENV['RAILS_ROOT'])
+end
+
+before_fork do |server, worker|
   if defined?(ActiveRecord::Base)
     ActiveRecord::Base.connection.disconnect!
   end
- 
-  # Before forking, kill the master process that belongs to the .oldbin PID.
-  # This enables 0 downtime deploys.
-  old_pid = "#{root}/tmp/pids/unicorn.pid.oldbin"
+
+  old_pid = "#{server.config[:pid]}.oldbin"
   if File.exists?(old_pid) && server.pid != old_pid
     begin
       Process.kill("QUIT", File.read(old_pid).to_i)
     rescue Errno::ENOENT, Errno::ESRCH
-      # someone else did our job for us
     end
   end
 end
- 
+
 after_fork do |server, worker|
-  # the following is *required* for Rails + "preload_app true",
   if defined?(ActiveRecord::Base)
     ActiveRecord::Base.establish_connection
   end
