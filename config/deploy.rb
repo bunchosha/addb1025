@@ -1,8 +1,8 @@
 lock '3.4.0'
  
-set :application, 'myApp'
-set :repo_url, 'git@github.com:lanchester/myApp.git'
-set :deploy_to, '/var/www/myApp'
+set :application, 'addb1025'
+set :repo_url, 'git@github.com:bunchosha/addb1025.git'
+set :deploy_to, '/var/www/addb1025'
 set :log_level, :debug
  
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets}
