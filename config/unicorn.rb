@@ -7,7 +7,7 @@ app_path = "/var/www/addb1025"
 #ここが一番重要
 #Nginxのupstreamで設定した「server unix:/var/www/あなたのアプリ名/shared/tmp/sockets/unicorn.sock」の場所と合わせる！！
 listen "#{app_path}/shared/tmp/sockets/unicorn.sock"
-pid "#{app_path}/shared/tmp/unicorn.pid"
+pid "#{app_path}/shared/tmp/pids/unicorn.pid"
 
 #何秒でタイムアウトするか
 timeout 60
