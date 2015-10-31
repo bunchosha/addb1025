@@ -1,0 +1,14 @@
+
+<div class="row">
+	<%= form_for(@post) do |f| %>
+		<%= f.label :title %>
+		<%= f.text_field :title %>
+		<%= f.label :category_id %>
+		<%= f.collection_select :category_id , Category.all, :id , :name%>
+
+		<%= f.label :company_id %>
+		<%= f.collection_select :company_id , Company.all, :id , :name%>
+
+		<%= f.submit "Entry New AD", class: "btn" %>
+	<% end %>
+</div>

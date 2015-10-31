@@ -1,0 +1,15 @@
+<h1>Companies#index</h1>
+
+
+
+<ul>
+<% @companies.each do |company| %>
+<li>
+	<%= company.id %> / 	
+	<%= company.name %> / 
+    <%= company.url%>	
+</li>
+
+<% end %>
+
+</ul>

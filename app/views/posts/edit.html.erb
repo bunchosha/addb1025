@@ -1,0 +1,30 @@
+<div class="row">
+<%= form_for @post, html: { multipart: true } do |f| %>
+		<%= f.label :title %>
+		<%= f.text_field :title %>
+		<%= f.label :category_id %>
+		<%=link_to Company.find_by(id: @post.company_id ).name , Company.find_by(id: @post.company_id )%>
+		
+
+		<%= f.label :company_id %>
+	<%= Category.find_by(id: @post.category_id ).name %>	
+
+
+		<%= f.label :product_id %>
+		<%= f.collection_select :product_id , Product.where(company_id: @post.company_id) , :id , :name%>		
+
+		<% if @post.category_id == "1" then %>
+			<%= f.label :youtube %>
+			<%= f.text_field :youtube, :placeholder => "http://youtube・・・" %>
+
+		<% else %>
+
+		<%=image_tag @post.pic.url(:medium) %>
+		<%= f.label :pic %>
+		<%= f.file_field :pic %>
+
+		<% end %>
+
+		<%= f.submit "Edit New AD", class: "btn" %>
+	<% end %>
+</div>

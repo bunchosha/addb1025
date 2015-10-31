@@ -1,0 +1,14 @@
+<h1>Categories#new</h1>
+
+
+<div class="row">
+	<div class="span6 offset3">
+		<%= form_for(@category) do |f| %>
+
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+      <%= f.submit "Entry New Category", class: "btn" %>
+		<% end %>
+	</div>
+</div>
+
