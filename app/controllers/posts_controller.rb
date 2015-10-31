@@ -35,6 +35,12 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
+
+    if @post.category_id == "1" then
+      @post.youtube_id = @post.youtube.split("v=")[-1]
+      @post.pic = "http://img.youtube.com/vi/"+ @post.youtube_id+ "/0.jpg"
+    end
+
     if @post.update_attributes(post_params)
       flash[:success] = "Post updated"
       redirect_to @post
@@ -45,6 +51,6 @@ class PostsController < ApplicationController
 
   private
     def post_params
-      params.require(:post).permit(:title, :category_id, :company_id, :cotent, :date, :pic, :youtube, :product_id)
+      params.require(:post).permit(:title, :category_id, :company_id, :cotent, :date, :pic, :youtube, :product_id, :youtube_id)
     end
 end

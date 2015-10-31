@@ -18,9 +18,9 @@
 
 <h2>CATEGORY: <%= @category.name %> </h2>
 <h2>COMPANY: <%=link_to @company.name, @company%></h2>
-<h2>PRODUCT: <%=Product.find(@post.product_id).name %></h2>
+<% if(@post.product_id) %><h2>PRODUCT: <%=Product.find(@post.product_id).name %></h2><% end %>
 
-
+<h2>YOUTUBE: <%= @post.pic %>
 </div>
 
 <% if current_user.id = 1 %>

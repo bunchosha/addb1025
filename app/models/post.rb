@@ -5,10 +5,7 @@ class Post < ActiveRecord::Base
   default_scope -> { order('created_at DESC') }
 
   def get_youtube_thumbnail
-  	if self.category_id == 1 
-		self.youtube_id = self.youtube.split("v=")[-1]
-		self.pic = "http://img.youtube.com/vi/"+ self.youtube_id+ "/0.jpg"
-	end
+  	
    end
 
 end
