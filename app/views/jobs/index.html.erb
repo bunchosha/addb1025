@@ -1,0 +1,12 @@
+
+
+
+<h1>JOB TYPE</h1>
+<ul>
+<% @jobs.each do |j| %>
+	<li><%= j.name %></li>
+<% end %>
+
+</ul>
+
+<%= link_to "new", new_job_path %>

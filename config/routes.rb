@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :categories
   resources :posts
   resources :products  
+  resources :jobs
+  resources :creators
   
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup',  to: 'users#new',            via: 'get'

@@ -20,14 +20,28 @@
 <h2>COMPANY: <%=link_to @company.name, @company%></h2>
 <% if(@post.product_id) %><h2>PRODUCT: <%=Product.find(@post.product_id).name %></h2><% end %>
 
-<h2>YOUTUBE: <%= @post.pic %>
+<h2> STAFF LIST -------------------</h2>
+
+<% @post.creators.each do |c| %>
+	<h2><%= Job.find(c.job_id).name %> : <%= c.name %>(<%= c.agency %>)</h2>
+<% end %>
+
 </div>
 
 <% if current_user.id = 1 %>
 <%= link_to "edit", edit_post_path(@post) %>   | <%= link_to "delete", @post, method: :delete,
                                   data: { confirm: "You sure?" } %>
+</br>
+-------------EDIT STAFF---------------</br>
 
 
-     <% end %>
 
- </div>
+<% end %>
+
+<%= form_for @post do |f| %>
+	<%= f.label :creator_id %>
+		<%= f.collection_select :creator_id , Creator.all, :id , :name%>
+	<%= f.submit "Add Creator", class: "btn" %>		
+<% end %>
+
+</div>

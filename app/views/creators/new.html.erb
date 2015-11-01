@@ -1,0 +1,20 @@
+<h1> NEW CREATOR </h1>
+
+<%= form_for @creator do |f| %>
+
+	<%= f.label :name %>
+	<%= f.text_field :name %>
+
+	<%= f.label :roma %>
+	<%= f.text_field :roma %>	
+
+	<%= f.label :agency %>
+	<%= f.text_field :agency %>
+
+	<%= f.label :job_id %>
+		<%= f.collection_select :job_id , Job.all, :id , :name%>
+
+	<%= f.submit "Add New Creator", class: "btn" %>
+
+
+<% end %>

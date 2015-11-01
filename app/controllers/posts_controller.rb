@@ -6,7 +6,12 @@ class PostsController < ApplicationController
   end
 
   def create
+
+
     @post = Post.new(post_params)
+
+
+
     if @post.save
       flash[:success] = "New Post!"
       redirect_to @post
@@ -35,6 +40,15 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
+    cid = params[:post][:creator_id]
+    if (cid)
+      @post.creators << Creator.find(cid)
+
+      flash[:success] = "ADD USER " + Creator.find(cid).name
+
+      redirect_to @post
+    else
+
 
     if @post.category_id == "1" then
       @post.youtube_id = @post.youtube.split("v=")[-1]
@@ -47,10 +61,11 @@ class PostsController < ApplicationController
     else
       render 'edit'
     end
+   end
   end
 
   private
     def post_params
-      params.require(:post).permit(:title, :category_id, :company_id, :cotent, :date, :pic, :youtube, :product_id, :youtube_id)
+      params.require(:post).permit(:title, :category_id, :company_id, :cotent, :date, :pic, :youtube, :product_id, :youtube_id, :creator_id)
     end
 end

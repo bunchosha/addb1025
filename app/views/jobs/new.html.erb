@@ -1,15 +1,16 @@
 <h1>Categories#new</h1>
 
-
 <div class="row">
 	<div class="span6 offset3">
-		<%= form_for(@category) do |f| %>
+		<%= form_for(@job) do |f| %>
 
 		<%= f.label :name %>
 		<%= f.text_field :name %>
 
+			<%= f.label :short %>
+		<%= f.text_field :short %>
 		
-      <%= f.submit "Entry New Category", class: "btn" %>
+      <%= f.submit "Entry New job", class: "btn" %>
 		<% end %>
 	</div>
 </div>
