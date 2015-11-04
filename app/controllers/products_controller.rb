@@ -9,7 +9,7 @@ def new
 
     if @product.save
       flash[:success] = "New product"
-      redirect_to root_path
+      redirect_to Company.find(@product.company_id)
     else
       flash[:false] = "False!"
       redirect_to root_path

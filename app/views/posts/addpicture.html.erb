@@ -1,0 +1,32 @@
+<div class="row post-new">
+
+	<% if(@post.pictures.length >= 1) %>
+		<% @post.pictures.each do |pic| %>
+			<%=image_tag pic.pic.url(:thumb) %>
+			<%= link_to "delete", pic, method: :delete,
+                                       data: { confirm: "You sure?" } %>
+		<% end %>
+	<% end %>
+
+	<h1><%=@post.title %></h1>
+	<h2><%=@post.pdate %></h2>
+
+		<% if @post.category_id == "1" then %>
+			CMのYOUTUBE アドレスを入力してください。
+			<%= form_for @post, html: { multipart: true } do |f| %>
+				<%= f.text_field :youtube, :placeholder => "http://youtube・・・" %>
+			<% end %>
+		<% else %>
+
+
+
+		<%= form_for([@post, @post.pictures.build] ) do |f| %>
+				<%= f.label "メインの写真を選んでください" %>
+			<%= f.file_field :pic %>
+			<%= f.submit "Add picture", class: "btn" %>		
+			<% end %>
+
+	<% end %>
+
+
+</div>

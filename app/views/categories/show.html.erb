@@ -1,4 +1,10 @@
 <h1>Categories#show</h1>
 <p>Find me in app/views/categories/show.html.erb</p>
 
+<% @posts = Post.where(:category_id => @category.id) %>
+
+<% if @posts %>
+	<%= render "shared/post_yoko" %>
+<% end %>
+
 <%= link_to "new", new_category_path %>

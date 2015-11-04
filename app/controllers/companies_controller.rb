@@ -1,4 +1,5 @@
 class CompaniesController < ApplicationController
+ autocomplete :company, :name
 
   def new
   	@company = Company.new

@@ -1,11 +1,20 @@
 Rails.application.routes.draw do
 
+  get 'assigns/new'
+
+  get 'assigns/destroy'
+
   get 'static_pages/home'
   get 'static_pages/help'
   root 'posts#index'
 
   get 'home' => "static_pages#home"
   get 'about' => "static_pages#about"
+
+  resources :posts do
+    get :autocomplete_company_name, :on => :collection
+end
+
 
   resources :users
   resources :companies
@@ -14,6 +23,21 @@ Rails.application.routes.draw do
   resources :products  
   resources :jobs
   resources :creators
+  resources :pictures, only: [:new, :create, :destroy, :edit]
+  resources :assigns, only: [:new, :create, :destroy, :edit]
+
+  resources :posts do
+    member do
+      get 'addpicture'
+    end
+  end
+
+  resources :posts do
+    member do
+      get 'addcreator'
+    end
+  end
+
   
   resources :sessions, only: [:new, :create, :destroy]
   match '/signup',  to: 'users#new',            via: 'get'
@@ -21,10 +45,15 @@ Rails.application.routes.draw do
   match '/signout', to: 'sessions#destroy',     via: 'delete'
 
 
+resources :posts do
+    resources :pictures
+  end
+
 resources :companies do
   resources :products do
   end
 end
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

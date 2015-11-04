@@ -1,14 +1,8 @@
-<div class="row">
-	<% @posts.each do |post| %>
-	<div class="panel top-post">
-		<div class="top-post-img">
-		<%=image_tag post.pic.url(:medium) %>
-		</div>
-		<div class="top-post-desc" >
-		<%= link_to post.title , post %></br>
-		<%= link_to Category.find_by(id: post.category_id).name %>
-	</div>
-	</div>
-	<% end %>
 
-<%= link_to "new", new_post_path %>
+<div class="row">
+</br>
+<%= render "shared/post_yoko" %>
+
+
+
+</div>

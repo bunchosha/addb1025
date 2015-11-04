@@ -1,14 +1,30 @@
 
-<div class="row">
-	<%= form_for(@post) do |f| %>
-		<%= f.label :title %>
-		<%= f.text_field :title %>
-		<%= f.label :category_id %>
-		<%= f.collection_select :category_id , Category.all, :id , :name%>
 
-		<%= f.label :company_id %>
-		<%= f.collection_select :company_id , Company.all, :id , :name%>
+<div class="row post-new">
+	<h1> NEW ENTRY </h1>
+	<p>あたらしい作品を登録します。 </p>
+	<p>作品タイトル、カテゴリー、公開日、企業名、プロダクト名を入力してください </p>
+
+	<%= form_for(@post) do |f| %>
+
+		<%= f.label "作品タイトル" %>
+		<%= f.text_field :title %>
+
+		<%= f.label "カテゴリー" %>
+		<%= f.collection_select :category_id , Category.all, :id , :name%>
+		<%= f.label "Publish Date" %>
+		<%= f.date_select :pdate %>
+
+		<%= f.label "企業名(リストから選んでください 文字を打つとSuggestがでます)" %>	
+		<%= f.autocomplete_field :company_name,  autocomplete_company_name_posts_path %>
+
+		<%= f.label "商品名(入力してください)" %>
+		<%= f.text_field :product %>
+
+<p> 会社名が見つからない場合は、<%=link_to "こちら", new_company_path  %>から登録してください。</p>
+
 
 		<%= f.submit "Entry New AD", class: "btn" %>
 	<% end %>
 </div>
+

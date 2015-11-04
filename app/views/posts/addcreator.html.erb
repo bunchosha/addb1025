@@ -1,0 +1,30 @@
+
+<h1>タイトル「<%= @post.title %></h1>
+<p>スタッフリスト編集ページ</p>
+</br>
+
+
+️現在のスタッフリスト
+<div class="bggray">
+<ul>
+<% @post.assign.each do |c| %>
+<li><%= Creator.find(c.creator.id).name %> / <%=c.job%> <%= link_to "delete", c, method: :delete,
+                                       data: { confirm: "You sure?" } %></li>
+<% end %>
+</ul>
+</div>
+
+
+<h2>ADD CREATOR </h2>
+<%= form_for @post do |f| %>
+
+<%= f.label :job_id %>
+		<%= f.collection_select :job_id , Job.all, :id , :name%>
+
+	<%= f.label :creator_id %>
+		<%= f.collection_select :creator_id , Creator.all, :id , :name%>
+	<%= f.submit "Add Creator", class: "btn" %>		
+
+<% end %>
+
+<%= link_to "編集ページに戻る", edit_post_path(@post) %>

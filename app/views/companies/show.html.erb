@@ -1,21 +1,9 @@
 <h1><%= @company.name %></h1>
 <h2><%= @company.url %></h2>
-<ul>
-<% @company.products.each do |p| %>
-<li> <%= p.name %> </li>
-<% end %>
-</ul>
 
-<%= form_for @company.products.build do |f| %>
+<% @posts = Post.where(:company_id => @company.id) %>
 
-      <%= f.label :name, class: "control-label" %>
-      <%= f.text_field :name %>
 
-      <%= f.hidden_field :company_id, :value =>@company.id %>
-
-    <p>
-      <%= f.submit "new product", class: "btn" %>
-    </p>
-  <% end %>
-
-<%= link_to "new", new_company_path %>
+<% if @posts %>
+	<%=render "shared/post_yoko" %>
+<% end %>	

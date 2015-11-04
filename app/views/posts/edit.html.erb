@@ -1,30 +1,48 @@
-<div class="row">
+<div class="row post-new">
+
+
 <%= form_for @post, html: { multipart: true } do |f| %>
 		<%= f.label :title %>
-		<%= f.text_field :title %>
-		<%= f.label :category_id %>
-		<%=link_to Company.find_by(id: @post.company_id ).name , Company.find_by(id: @post.company_id )%>
+		<h1><%= f.text_field :title %></h1>
+
+		<%= f.date_select :pdate,:order => [:year, :month], :start_year => 1950 %>
 		
+		<p>CATEGORY : <%= Category.find_by(id: @post.category_id ).name %>	</p>
+	
+		<p>COMPANY NAME : <%=link_to Company.find_by(id: @post.company_id ).name , Company.find_by(id: @post.company_id )%></p>
+		<p>
 
-		<%= f.label :company_id %>
-	<%= Category.find_by(id: @post.category_id ).name %>	
+		<p>MESSAGE : <%= f.text_area :message %> </p>
 
-
-		<%= f.label :product_id %>
-		<%= f.collection_select :product_id , Product.where(company_id: @post.company_id) , :id , :name%>		
 
 		<% if @post.category_id == "1" then %>
-			<%= f.label :youtube %>
+			CMのYOUTUBE アドレスを入力してください。
 			<%= f.text_field :youtube, :placeholder => "http://youtube・・・" %>
-
 		<% else %>
+		
+		<% end %>
+		<%= f.submit "Edit AD", class: "btn" %>						
 
-		<%=image_tag @post.pic.url(:medium) %>
-		<%= f.label :pic %>
-		<%= f.file_field :pic %>
+	<% end %>
 
+	<% if(@post.pictures) %>
+			<% @post.pictures.each do |pic| %>
+				<%= image_tag pic.pic.url(:medium) %>
+			<% end %>
 		<% end %>
 
-		<%= f.submit "Edit New AD", class: "btn" %>
-	<% end %>
+		<% if @post.category_id =! "1" then %>
+		<p><%=link_to "シリーズの写真を追加する", addpicture_post_path(@post) %></p>
+		<% end %>
+
+	</br>
+	
+	<p> <%= link_to "スタッフリストを編集する", addcreator_post_path(@post) %></p>
+	<p> <%= link_to "タレント情報を編集する", addcreator_post_path(@post) %></p>	
+
+	<p> <%= link_to "作品にもどる", post_path(@post) %></p>
+
 </div>
+
+
+

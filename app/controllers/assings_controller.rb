@@ -1,0 +1,2 @@
+class AssingsController < ApplicationController
+end

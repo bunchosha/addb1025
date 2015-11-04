@@ -1,0 +1,24 @@
+<div class="top-ad-box">
+	
+<div class="top-ad-img">
+	<% if post.category_id == "1" then %>
+		<%=image_tag post.pic.url(:medium) %>
+	<% else %>
+		<%if post.pictures.length >0 then %><%= image_tag post.pictures.first.pic.url(:medium)%><% end %>
+	<% end %>
+</div>
+
+<div class="top-ad-desc">
+	<% @category= Category.find_by(id: post.category_id )%>
+	<% @company = Company.find_by(id: post.company_id)%>
+    <h1><%= link_to post.title , post %></h1>
+	<h2><%=@category.name %></h2>
+	<%if @company %>
+		<h2><%= @company.name  %></h2>
+	<% end %>
+		<h2><%= post.pdate %></h2>
+</div>
+
+</div>
+
+

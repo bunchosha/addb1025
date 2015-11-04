@@ -1,0 +1,7 @@
+<%= form_for @pic do |f| %>
+
+<%= image_tag @pic.pic.url(:medium) %>
+		<%= f.label "メインの写真を選んでください" %>
+<%= f.file_field :pic %>
+<%= f.submit "Add Creator", class: "btn" %>		
+<% end %>

@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151101132123) do
+ActiveRecord::Schema.define(version: 20151104112751) do
+
+  create_table "assigns", force: :cascade do |t|
+    t.string   "job"
+    t.integer  "creator_id"
+    t.integer  "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -42,6 +50,18 @@ ActiveRecord::Schema.define(version: 20151101132123) do
     t.string   "short"
   end
 
+  create_table "pictures", force: :cascade do |t|
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "pic_file_name"
+    t.string   "pic_content_type"
+    t.integer  "pic_file_size"
+    t.datetime "pic_updated_at"
+    t.integer  "post_id"
+  end
+
+  add_index "pictures", ["post_id"], name: "index_pictures_on_post_id"
+
   create_table "post_creators", force: :cascade do |t|
     t.integer  "post_id"
     t.integer  "creator_id"
@@ -66,6 +86,12 @@ ActiveRecord::Schema.define(version: 20151101132123) do
     t.string   "youtube"
     t.string   "youtube_id"
     t.integer  "creator_id"
+    t.string   "company_name"
+    t.integer  "job_id"
+    t.integer  "talent_id"
+    t.string   "product"
+    t.text     "message"
+    t.integer  "agency_id"
   end
 
   add_index "posts", ["user_id", "created_at"], name: "index_posts_on_user_id_and_created_at"

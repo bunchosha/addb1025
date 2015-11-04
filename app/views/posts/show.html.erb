@@ -5,43 +5,58 @@
 		<iframe id="player" type="text/html"  src="https://www.youtube.com/embed/<%= @post.youtube_id %>"  frameborder="0"></iframe>
 		</div>
 	<% else %>
-		<%= image_tag @post.pic.url(:large) %>
+		<% if(@post.pictures.length >= 1) %>
+		<%= image_tag @post.pictures.first.pic.url%>
+		<% if(@post.pictures.length > 1) %>
+			<h2>OTHERS</h2>
+			<% @post.pictures.each do |pic| %>
+			<%=image_tag pic.pic.url(:medium) %>
+		<% end %>
+	<% end %>
+<% end %>
 	<% end %>
 
 </div>
 
-<div class="show-top-desc">
-
 <h1><%= @post.title %></h1>
+
+<div class="show-top-desc bggray">
+
 <% @category= Category.find_by(id: @post.category_id )%>
 <% @company = Company.find_by(id: @post.company_id)%>
 
-<h2>CATEGORY: <%= @category.name %> </h2>
-<h2>COMPANY: <%=link_to @company.name, @company%></h2>
+<h2>DATE: <%= @post.pdate %> </h2>
+
+
+
+<h2>COMPANY : <%=link_to @company.name, @company%></h2>
+
 <% if(@post.product_id) %><h2>PRODUCT: <%=Product.find(@post.product_id).name %></h2><% end %>
 
-<h2> STAFF LIST -------------------</h2>
+<h2>MESSAGE : <%= @post.message %> </h2>
 
-<% @post.creators.each do |c| %>
-	<h2><%= Job.find(c.job_id).name %> : <%= c.name %>(<%= c.agency %>)</h2>
+<h2>TALENT : <%= %></h2>
+
+</div>
+<div class="bggray">
+
+<h2> スタッフリスト </h2>
+
+<% @post.assign.each do |c| %>
+	<% @creator = Creator.find(c.creator.id) %>
+	<h2><%=link_to @creator.name, @creator %> / <%=c.job%></h2>
 <% end %>
 
 </div>
 
+
+<% if signed_in? %>
 <% if current_user.id = 1 %>
 <%= link_to "edit", edit_post_path(@post) %>   | <%= link_to "delete", @post, method: :delete,
                                   data: { confirm: "You sure?" } %>
-</br>
--------------EDIT STAFF---------------</br>
 
 
 
-<% end %>
-
-<%= form_for @post do |f| %>
-	<%= f.label :creator_id %>
-		<%= f.collection_select :creator_id , Creator.all, :id , :name%>
-	<%= f.submit "Add Creator", class: "btn" %>		
-<% end %>
+<% end %><% end %>
 
 </div>

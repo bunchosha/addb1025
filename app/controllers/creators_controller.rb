@@ -4,8 +4,6 @@ class CreatorsController < ApplicationController
 	end
 
 	def create
-
-
 		@creator = Creator.new(creator_params)
 		if @creator.save
 			flash[:success] = "new Creator"
