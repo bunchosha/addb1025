@@ -25,18 +25,20 @@
 
 	<% end %>
 
-	<% if(@post.pictures) %>
+		<% if(@post.pictures) %>
 			<% @post.pictures.each do |pic| %>
 				<%= image_tag pic.pic.url(:medium) %>
 			<% end %>
 		<% end %>
 
-		<% if @post.category_id =! "1" then %>
-		<p><%=link_to "シリーズの写真を追加する", addpicture_post_path(@post) %></p>
+
+		<% if @post.category_id == "1" then %>
+		<% else %>
+			<p><%=link_to "シリーズの写真を追加する", addpicture_post_path(@post) %></p>		
 		<% end %>
 
 	</br>
-	
+
 	<p> <%= link_to "スタッフリストを編集する", addcreator_post_path(@post) %></p>
 	<p> <%= link_to "タレント情報を編集する", addcreator_post_path(@post) %></p>	
 

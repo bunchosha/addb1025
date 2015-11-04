@@ -7,7 +7,7 @@ class PicturesController < ApplicationController
 	def create
 		@post = Post.find(params[:post_id])
 		@pic = @post.pictures.new(pic_params)
-
+		
     	if @pic.save
         	flash[:success] = "New Picture!"
 	        redirect_to edit_post_path(@post)
